@@ -1,0 +1,580 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "RESTful API",
+    "description": "API Spec for RESTful API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api/v1"
+    }
+  ],
+  "paths": {
+    "/threads": {
+      "get": {
+        "security": [{
+          "Auth" : []
+        }],
+        "tags": [
+          "Thread API"
+        ],
+        "description": "List all threads",
+        "summary": "List all threads",
+        "responses": {
+          "200": {
+            "description": "Success get all threads",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Thread"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "security": [{
+          "Auth" : []
+        }],
+        "tags": ["Thread API"],
+        "description": "Create new Thread",
+        "summary": "Create new Thread",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrUpdateThread"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success Create Category",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code" : {
+                      "type": "number"
+                    },
+                    "status" : {
+                      "type": "string"
+                    },
+                    "data" : {
+                      "$ref": "#/components/schemas/Thread"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/thread/{threadId}" : {
+      "get" : {
+        "security": [{
+          "Auth" : []
+        }],
+        "tags": ["Thread API"],
+        "summary": "Get thread by Id",
+        "description": "Get thread by id",
+        "parameters": [
+          {
+            "name": "threadId",
+            "in": "path",
+            "description": "thread Id"
+          }
+        ],
+        "responses": {
+          "200" : {
+            "description": "Success get thread",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code" : {
+                      "type": "number"
+                    },
+                    "status" : {
+                      "type": "string"
+                    },
+                    "data" : {
+                      "$ref": "#/components/schemas/Thread"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "security": [{
+          "Auth" : []
+        }],
+        "tags": ["Thread API"],
+        "summary": "Update thread by Id",
+        "description": "Update thread by Id",
+        "parameters": [
+          {
+            "name": "threadId",
+            "in": "path",
+            "description": "thread Id"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrUpdateThread"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200" : {
+            "description": "Success get thread",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code" : {
+                      "type": "number"
+                    },
+                    "status" : {
+                      "type": "string"
+                    },
+                    "data" : {
+                      "$ref": "#/components/schemas/Thread"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [{
+          "Auth" : []
+        }],
+        "tags": ["Thread API"],
+        "summary": "Delete thread by Id",
+        "description": "Delete thread by id",
+        "parameters": [
+          {
+            "name": "threadId",
+            "in": "path",
+            "description": "thread Id"
+          }
+        ],
+        "responses": {
+          "200" : {
+            "description": "Success delete thread",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code" : {
+                      "type": "number"
+                    },
+                    "status" : {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "security": [{
+          "Auth" : []
+        }],
+        "tags": [
+          "User API"
+        ],
+        "description": "List all user",
+        "summary": "List all user",
+        "responses": {
+          "200": {
+            "description": "Success get all user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/User"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/signup": {
+      "post": {
+        "security": [{
+          "Auth" : []
+        }],
+        "tags": ["Auth API"],
+        "description": "Create new User",
+        "summary": "Create new User",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrUpdateUser"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success Create user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code" : {
+                      "type": "number"
+                    },
+                    "status" : {
+                      "type": "string"
+                    },
+                    "data" : {
+                      "$ref": "#/components/schemas/User"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "security": [{
+          "Auth" : []
+        }],
+        "tags": ["Auth API"],
+        "description": "Create new User",
+        "summary": "Create new User",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthLogin"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success Create Category",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code" : {
+                      "type": "number"
+                    },
+                    "status" : {
+                      "type": "string"
+                    },
+                    "data" : {
+                      "$ref": "#/components/schemas/User"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/{userid}" : {
+      "get" : {
+        "security": [{
+          "Auth" : []
+        }],
+        "tags": ["User API"],
+        "summary": "Get user by Id",
+        "description": "Get user by id",
+        "parameters": [
+          {
+            "name": "userid",
+            "in": "path",
+            "description": "user Id"
+          }
+        ],
+        "responses": {
+          "200" : {
+            "description": "Success get user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code" : {
+                      "type": "number"
+                    },
+                    "status" : {
+                      "type": "string"
+                    },
+                    "data" : {
+                      "$ref": "#/components/schemas/User"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "security": [{
+          "Auth" : []
+        }],
+        "tags": ["User API"],
+        "summary": "Update user by Id",
+        "description": "Update user by Id",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user Id"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrUpdateUser"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200" : {
+            "description": "Success get user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code" : {
+                      "type": "number"
+                    },
+                    "status" : {
+                      "type": "string"
+                    },
+                    "data" : {
+                      "$ref": "#/components/schemas/User"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [{
+          "Auth" : []
+        }],
+        "tags": ["User API"],
+        "summary": "Delete user by Id",
+        "description": "Delete user by id",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user Id"
+          }
+        ],
+        "responses": {
+          "200" : {
+            "description": "Success delete user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code" : {
+                      "type": "number"
+                    },
+                    "status" : {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "Auth" : {
+        "type": "apiKey",
+        "in" : "header",
+        "name": "X-API-Key",
+        "description": "Authentication for RESTful API"
+      }
+    },
+    "schemas": {
+      "CreateOrUpdateThread" : {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "post_type": {
+            "type": "number"
+          }
+        }
+      },
+      "CreateOrUpdatePostType" : {
+        "type": "object",
+        "properties": {
+          "jenis": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          }
+        }
+      },
+      "CreateOrUpdateUser" : {
+        "type": "object",
+        "properties": {
+          "fullname": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "number"
+          }
+        }
+      },
+      "Thread" : {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "post_type": {
+            "type": "object",
+            "$ref": "#/components/schemas/PostType"
+          },
+          "user_id": {
+            "type": "object",
+            "$ref": "#/components/schemas/User"
+          }
+        }
+      },
+      "PostType" : {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "jenis": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "fullname": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "number"
+          }
+        }
+      },
+      "AuthLogin": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
