@@ -12,15 +12,11 @@ type User struct {
 	Phone    int
 }
 
-func (u *User) HashPassword() {
-	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(u.Password), 12)
-	if err != nil {
-		panic(err)
-	}
-	u.Password = string(hashedPassword)
+func HashPassword(password string) string {
+	hash, _ := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+	return string(hash)
 }
 
-func (u *User) CheckPassword(password string) bool {
-	err := bcrypt.CompareHashAndPassword([]byte(u.Password), []byte(password))
-	return err == nil
+func CheckPassword(password, hash string) error {
+	return bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
 }
